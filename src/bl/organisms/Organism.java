@@ -1,4 +1,4 @@
-package bl.abstracts;
+package bl.organisms;
 
 import java.util.Random;
 
@@ -14,22 +14,26 @@ public abstract class Organism {
     private float intelligence;
     private float technologicalMeans;
 
+
     public Organism(float strength, float intelligence, float technologicalMeans) {
         this.strength = strength;
         this.intelligence = intelligence;
         this.technologicalMeans = technologicalMeans;
     }
 
-    public abstract void updateOrganismByConstant(int constant);
 
-    public void updateCharacterByConstantAndRandomOneByMutation(int constant, float mutation) {
+    public abstract void updateOrganismCharacteristicByConstant(int constant);
+    public abstract String getType();
+
+
+    public void updateCharacteristicsByConstantAndMutation(int constant, float mutation) {
         updateOrganismInFifthProbabilityByConstant(constant);
         multiplyRandomCharacteristicByMutation(mutation);
     }
 
     private void updateOrganismInFifthProbabilityByConstant(int constant) {
-        if(toPerformUpdate())
-            updateOrganismByConstant(constant);
+        if (toPerformUpdate())
+            updateOrganismCharacteristicByConstant(constant);
     }
 
     private boolean toPerformUpdate() {
@@ -83,5 +87,8 @@ public abstract class Organism {
         strength += halfConstant;
     }
 
-    public abstract String getType();
+    public String toString() {
+        return "strength=" + strength + ", intelligence=" + intelligence + ", " +
+                "technologicalMeans=" + technologicalMeans;
+    }
 }

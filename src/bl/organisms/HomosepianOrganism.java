@@ -1,14 +1,12 @@
 package bl.organisms;
 
-import bl.abstracts.Organism;
-
 public class HomosepianOrganism extends Organism {
 
     public HomosepianOrganism(float strength, float intelligence, float technologicalMeans) {
         super(strength, intelligence, technologicalMeans);
     }
 
-    public void updateOrganismByConstant(int constant) {
+    public void updateOrganismCharacteristicByConstant(int constant) {
         updateIntelligenceByConstant(constant);
     }
 

@@ -1,13 +1,10 @@
 package bl.organisms;
 
-import bl.abstracts.Organism;
-
-public class OrganismClan extends Thread{
+public class OrganismClan {
 
     private static final int CONSTANT_TO_UPDATE_ORGANISM = 2;
 
     private int balance;
-
     private final int multiplication;
     private final float mutation;
     private final String name;
@@ -21,15 +18,8 @@ public class OrganismClan extends Thread{
         this.organismInfo = organismInfo;
     }
 
-    public void run() {
-        newLifeCycle();
-        System.out.println(this);
-        newLifeCycle();
-        System.out.println(this);
-    }
-
-    public void newLifeCycle() {
-        organismInfo.updateCharacterByConstantAndRandomOneByMutation(CONSTANT_TO_UPDATE_ORGANISM, mutation);
+    public void callNewLifeCycle() {
+        organismInfo.updateCharacteristicsByConstantAndMutation(CONSTANT_TO_UPDATE_ORGANISM, mutation);
         updateBalanceByMultiplication();
     }
 
@@ -39,5 +29,9 @@ public class OrganismClan extends Thread{
 
     public String toString() {
         return name + " -> " + "[" + organismInfo + ", balance=" + balance + "][" + organismInfo.getType() + "]";
+    }
+
+    public String getType() {
+        return organismInfo.getType();
     }
 }
