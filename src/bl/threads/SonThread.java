@@ -2,7 +2,6 @@ package bl.threads;
 
 import bl.threadlocks.ThreadLockCondition;
 import bl.threadlocks.LifeCycleCountDown;
-import ui.EvolutionLogger;
 import java.util.concurrent.locks.Lock;
 
 public abstract class SonThread extends BaseThread{
@@ -11,39 +10,33 @@ public abstract class SonThread extends BaseThread{
 
     private Lock fatherThreadLock;
     private LifeCycleCountDown remainingSiblingsThreadsWaiting;
-    private EvolutionLogger logger;
 
     public abstract String toString();
+    public abstract void callNewLifeCycle();
 
     public SonThread() {
         super();
         threadLockCondition = new ThreadLockCondition();
     }
 
-    public void run() {
-        while(isThreadAlive()) {
-            waitForNewLifeCycle();
-            callNewLifeCycle();
-            logThread();
-        }
+    public void waitForNewLifeCycle() {
+        waitForNotification();
     }
 
-    public void waitForNewLifeCycle() {
+    public void waitForBattlesToEnd() {
+        waitForNotification();
+    }
+
+    private void waitForNotification() {
         threadLockCondition.awaitNewLifeCycle(remainingSiblingsThreadsWaiting, fatherThreadLock);
     }
 
-    public void callNewLifeCycle() {
+    public void finishedStep() {
         remainingSiblingsThreadsWaiting.countDownWithThreadAndFatherLocks(threadLockCondition, fatherThreadLock);
     }
 
-    private void logThread() {
-        logger.log(this.toString());
-    }
-
     public void notifyNewLifeCycle(LifeCycleCountDown remainingSiblingsThreadsWaiting) {
-        setRemainingSiblingsThreadsWaiting(remainingSiblingsThreadsWaiting);
-
-        threadLockCondition.notifyNewLifeCycle();
+        notifyThread(remainingSiblingsThreadsWaiting);
     }
 
     private void setRemainingSiblingsThreadsWaiting(LifeCycleCountDown remainingSiblingsThreadsWaiting) {
@@ -57,7 +50,13 @@ public abstract class SonThread extends BaseThread{
         this.remainingSiblingsThreadsWaiting = remainingSiblingsThreadsWaiting;
     }
 
-    public void addLogger(EvolutionLogger logger) {
-        this.logger = logger;
+    public void notifyContinueOfLifeCycle(LifeCycleCountDown remainingThreadsFinishingLifeCycle) {
+        notifyThread(remainingThreadsFinishingLifeCycle);
+    }
+
+    private void notifyThread(LifeCycleCountDown remainingThreadsDoingProcess) {
+        setRemainingSiblingsThreadsWaiting(remainingThreadsDoingProcess);
+
+        threadLockCondition.notifyThread();
     }
 }

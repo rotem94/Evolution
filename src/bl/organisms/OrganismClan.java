@@ -34,4 +34,24 @@ public class OrganismClan {
     public String getType() {
         return organismInfo.getType();
     }
+
+    public float getPower() {
+        return organismInfo.sumProperties();
+    }
+
+    public int getAttackPoints() {
+        return balance * 2;
+    }
+
+    public int getDefensePoints() {
+        return (int) Math.ceil((float)balance / 2);
+    }
+
+    public void decreaseBalance(int number) {
+        balance -= number;
+    }
+
+    public boolean checkIfOrganismEliminated() {
+        return balance <= 0;
+    }
 }

@@ -1,13 +1,14 @@
 package bl.threads;
 
 import bl.accessories.ThreadSleep;
+import bl.groups.ContinentThreadGroup;
 import ui.EvolutionLogger;
 
 public class Planet extends BaseThread{
 
     private static Planet planet;
 
-    private final SonThreadGroup continents;
+    private final ContinentThreadGroup continents;
     private final EvolutionLogger logger;
 
 
@@ -23,9 +24,7 @@ public class Planet extends BaseThread{
         super();
 
         logger = new EvolutionLogger();
-        continents = new SonThreadGroup();
-
-        continents.addLogger(logger);
+        continents = new ContinentThreadGroup();
     }
 
     public void run() {
@@ -58,6 +57,7 @@ public class Planet extends BaseThread{
     }
 
     public void addContinent(Continent continent) {
+        continent.addLogger(logger);
         continents.addThread(continent);
     }
 }

@@ -19,6 +19,7 @@ public class EvolutionLogger {
 
     public void log(String message) {
         loggerLock.lock();
+        System.out.println(message);
         logger.info(message);
         loggerLock.unlock();
     }

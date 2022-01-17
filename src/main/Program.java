@@ -46,15 +46,9 @@ public class Program {
 
         OrganismClanThread homoebolisClanThread = getHomoebolisOrganismClanThread();
         OrganismClanThread homoerectusClanThread = getHomoerectusOrganismClanThread();
-        OrganismClanThread homofloresiensisClanThread = getHomofloresiensisOrganismClanThread();
-        OrganismClanThread homosepianClanThread = getHomosepianOrganismClanThread();
-        OrganismClanThread neanderthalClanThread = getNeanderthalOrganismClanThread();
 
         europe.addClanThread(homoebolisClanThread);
         europe.addClanThread(homoerectusClanThread);
-        europe.addClanThread(homofloresiensisClanThread);
-        europe.addClanThread(homosepianClanThread);
-        europe.addClanThread(neanderthalClanThread);
 
         return europe;
     }

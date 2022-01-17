@@ -33,7 +33,7 @@ public class ThreadLockCondition {
         unlock();
     }
 
-    public void notifyNewLifeCycle() {
+    public void notifyThread() {
         lock();
         lifeCycleCalled.signal();
         unlock();

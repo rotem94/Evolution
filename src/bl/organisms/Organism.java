@@ -26,6 +26,10 @@ public abstract class Organism {
     public abstract String getType();
 
 
+    public float sumProperties() {
+        return strength + intelligence + technologicalMeans;
+    }
+
     public void updateCharacteristicsByConstantAndMutation(int constant, float mutation) {
         updateOrganismInFifthProbabilityByConstant(constant);
         multiplyRandomCharacteristicByMutation(mutation);
